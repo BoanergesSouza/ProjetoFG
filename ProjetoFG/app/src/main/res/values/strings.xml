@@ -25,6 +25,7 @@
     </string>
     <string name="configuracoes">Configurações</string>
     <string name="msg_obrigacao">* significa que o campo é obrigatório</string>
+    <string name="msg_tbt">Ativar código PIN que será usado para confirmar envio de solicitação de um chamado.</string>
 
     <string-array name="tp_sangue">
         <item>A</item>
