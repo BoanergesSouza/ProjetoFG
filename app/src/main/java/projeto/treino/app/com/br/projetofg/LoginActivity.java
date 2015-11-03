@@ -70,6 +70,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     public void esquecerSenha(View view){
-
+            startActivity(new Intent(this, EsquecerSenhaActivity.class));
     }
 }

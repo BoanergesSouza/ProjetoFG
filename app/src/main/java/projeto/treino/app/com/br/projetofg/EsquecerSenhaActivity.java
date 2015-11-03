@@ -23,7 +23,7 @@ public class EsquecerSenhaActivity extends Activity
     private Button btEnviar, btConfirmar, btMudaSenha, confirmarFim;
     private RadioButton email, rbPin;
 
-    int cod=0;
+    int[] n = new int[5];
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +72,7 @@ public class EsquecerSenhaActivity extends Activity
 
     public int[] gerarCodigo(){
         Random gerar = new Random();
-        int[] numeros= new int[5];
+        int[] numeros = new int[5];
 
         for (int i=0; i<5; i++){
             numeros[i] = gerar.nextInt(9);
@@ -81,17 +81,14 @@ public class EsquecerSenhaActivity extends Activity
     }
 
     public void btCodigo(View view){
-        int[] n = gerarCodigo();
+        n = gerarCodigo();
 
         //aqui deve ser implementado o método de envio do codigo para o e-mail e gravação no banco de dados
 
-        for (int i=0 ; i<5; i++) {
-            cod += n[i];
-        }
-
-        String msg = "O código foi: " + cod;
+        String msg = "O código foi: " + n[0]+n[1]+n[2]+n[3]+n[4];
        Toast toast = Toast.makeText(this, msg, Toast.LENGTH_LONG);
         toast.show();
+
     }
 
     @Override
@@ -129,11 +126,10 @@ public class EsquecerSenhaActivity extends Activity
         }
     }
 
-    public int pegaString(){
+    public String pegaString(){
        String str = et_codigo.getText().toString();
-        int num = Integer.parseInt(str);
 
-        return num;
+        return str;
     }
 
     @Override
@@ -157,20 +153,38 @@ public class EsquecerSenhaActivity extends Activity
     }
 
     public void mudancaSenha(View view){
-        int codUsuario = pegaString();
 
-        if(codUsuario == cod){
-            Toast toast = Toast.makeText(this, "Codigo Verificado", Toast.LENGTH_SHORT);
-            toast.show();
+       if(view == btConfirmar) {
+           String codUsuario = pegaString();
+           String confirmar = " ";
 
-            senha.setVisibility(View.VISIBLE);
-            et_senha.setVisibility(View.VISIBLE);
-            confirmaSenha.setVisibility(View.VISIBLE);
-            et_confirmaSenha.setVisibility(View.VISIBLE);
-            confirmarFim.setVisibility(View.VISIBLE);
-        }else{
-            Toast toast = Toast.makeText(this, "Código Inválido", Toast.LENGTH_SHORT);
-            toast.show();
-        }
+           for (int i = 0; i < 5; i++) {
+               confirmar += n[i];
+           }
+
+           confirmar = confirmar.trim();
+
+           if (codUsuario.equals(confirmar)) {
+
+               Toast toast = Toast.makeText(this, "Codigo Verificado", Toast.LENGTH_SHORT);
+               toast.show();
+
+               senha.setVisibility(View.VISIBLE);
+               et_senha.setVisibility(View.VISIBLE);
+               confirmaSenha.setVisibility(View.VISIBLE);
+               et_confirmaSenha.setVisibility(View.VISIBLE);
+               confirmarFim.setVisibility(View.VISIBLE);
+           } else {
+               Toast toast = Toast.makeText(this, "Código Inválido", Toast.LENGTH_SHORT);
+               toast.show();
+           }
+       }else if (view == btMudaSenha){
+           //implementa a comparação do PIN armazenado em banco de dados com o digitado
+           senha.setVisibility(View.VISIBLE);
+           et_senha.setVisibility(View.VISIBLE);
+           confirmaSenha.setVisibility(View.VISIBLE);
+           et_confirmaSenha.setVisibility(View.VISIBLE);
+           confirmarFim.setVisibility(View.VISIBLE);
+       }
     }
 }
