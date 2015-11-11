@@ -130,8 +130,7 @@
             android:id="@+id/btMudaSenha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mudar Senha"
-            android:onClick="mudancaSenha"/>
+            android:text="Mudar Senha" />
 
         //mudança de senha
         <TextView
